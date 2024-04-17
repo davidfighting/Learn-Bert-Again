@@ -16,5 +16,9 @@ sample_label_2 = label_2.sample(n=1200, random_state=42).sample(frac=1)
 # 合并抽样后的数据
 sampled_data = pd.concat([sample_label_0, sample_label_1, sample_label_2])
 
+# 打乱整体顺序
+sampled_data = sampled_data.sample(frac=1, random_state=42)
+
+
 # 可选择将结果保存到新的CSV文件中
 sampled_data.to_csv("data\\train.csv", index=False, encoding="utf-8")
