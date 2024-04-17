@@ -19,6 +19,9 @@ sampled_data = pd.concat([sample_label_0, sample_label_1, sample_label_2])
 # 打乱整体顺序
 sampled_data = sampled_data.sample(frac=1, random_state=42)
 
+# 将没有被抽样到的数据行保存到新的CSV文件中
+remaining_data = df[~df.index.isin(sampled_data.index)]
+remaining_data.to_csv("data\\test.csv", index=False, encoding="utf-8")
 
 # 可选择将结果保存到新的CSV文件中
 sampled_data.to_csv("data\\train.csv", index=False, encoding="utf-8")
