@@ -90,14 +90,15 @@ class InputFeatures(object):
             for _, input_ids, input_mask, segment_ids in choices_features
         ]
         self.label = label
-    # if we use roberta, we don't need to set input_mask for the reason that this model delete this step.
+    # roberta need input_mask
 def read_examples(input_file, is_training):
     # Read CSV without considering the first row as header
+    # And there is existing a row that we don't need. So we use names
     df = pd.read_csv(input_file, header=0, names=['id', 'content', 'title', 'label'])
     examples = []
     for val in df[['id', 'content', 'title', 'label']].values:
         # Convert label to integer
-        label = int(val[3])  # Assuming the label is at index 3
+        label = int(val[3])  # set the label is at index 3
         examples.append(InputExample(guid=val[0], text_a=val[1], text_b=val[2], label=label))
     return examples
 
